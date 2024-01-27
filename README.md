@@ -1,11 +1,15 @@
-# Getting Started with Create React App
+# dfacDash React front end
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+Single-page React application front end that mimics menutigr.com's user interface for placing meal orders online. Connects with the dfacDash backend API [https://github.com/CrissyMichelle/dfacDash]
 
-## Available Scripts
+## Technologies Used
+- React, Create-React-App, react-router
+- Backend uses Node.js and Express
+- PostgreSQL database
 
-In the project directory, you can run:
-
+## Setup and Installation
+Default instructions from the npx create-react-app boiler plate:
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -39,32 +43,11 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Project Status and Future Plans
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- As part of the Springboard Engineering Career Course the project represents a solo development project that meets  final capstone requirements and qualifies me for graduation.
+- A separate but similar development team project is scheduled for competition at the Bravo 011 Hackathon taking place in Oahu, HI from 5-9 February 2024.
+- Future goals include building a React Native front end for mobile apps, enabling stream-lined login process utilizing ID scanning, and connecting the backend API with larger databases and national systems of record.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact
+[CrissyMichelle on GitHub](https://github.com/CrissyMichelle)
