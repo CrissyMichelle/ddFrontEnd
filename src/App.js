@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h2><i>Welcome to dfac Dash</i></h2>
-        <h1>Passionate about good food and service</h1>
+        <h1>Passionate about good food and pro service</h1>
         <img src={culinaryImg} className="App-logo" alt="logo" />
         <p>
         </p>
