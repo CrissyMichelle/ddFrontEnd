@@ -50,8 +50,7 @@ function NavBar() {
                 {(isScreenSmall && isMenuOpen) || !isScreenSmall ? (
                     <>
                         <Link to="/">About</Link>
-                        <Link to="/auth/dfacs">DFacs</Link>
-                        <Link to="/">Contact</Link>
+                        <Link to="/auth/dfacs">DFACs</Link>
                         {isLoggedIn ? (
                             <>
                                 <Link to="/profile">Profile</Link>
@@ -60,11 +59,12 @@ function NavBar() {
                             </>
                         ) : (
                             <>
-                                <Link to="/auth/customer/login">Customer login</Link>
-                                <Link to="/auth/92G/login">Culinarians login</Link>
                                 <Link to="/auth/register/customer">Sign up</Link>
+                                <Link to="/auth/customer/login">Customer login</Link>
+                                <Link to="/auth/92G/login">Culinarians login</Link>            
                             </>
                         )}
+                        <Link to="/">Contact</Link>
                     </>
                 ) : null}
             </div>

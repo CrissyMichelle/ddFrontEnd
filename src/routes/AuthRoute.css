@@ -21,6 +21,10 @@
     box-sizing: border-box;
 }
 
+.form button {
+    background-color: #271ecf;
+}
+
 .form button:hover {
     background-color: #45a049;
 }
