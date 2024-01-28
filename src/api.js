@@ -63,6 +63,18 @@ class DdashApi {
         let res = await this.request('auth/92G/login', formData, 'post');
         return { token: res.token, username: formData.username };
     }
+
+    /** GET all DFACs with optional search parameters */
+    static async getDfacs(filters = {}) {
+        let res = await this.request('auth/dfacs', filters);
+        return res.dfacs;
+    }
+
+    /** GET all meals with optional search parameters */
+    static async getMeals(filters = {}) {
+        let res = await this.request('meals', filters);
+        return res.meals;
+    }
 }
 
 export default DdashApi;

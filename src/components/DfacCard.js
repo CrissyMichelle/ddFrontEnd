@@ -3,15 +3,17 @@ import DdashApi from "../api";
 import { Link } from "react-router-dom";
 
 function DfacCard( { dfac }) {
-    let meals = request('/meals');
+    let meals = async () => {
+        try {
+            await DdashApi.getMeals();
+        } catch (err) {
+            console.error("Error fetching meals data: ", err);
+        }
+    };
     const filterMealsByDfac = meals.filter(meal => {
         meal.dfacID === dfac.dfacID
     });
 
-    let addressAll = request('/auth/dfacs');
-    const address = addressAll.filter(d => {
-        d.dfacID === dfac.dfacID 
-    })
     return (
         <div className="dfac-card">
             <img src={dfac.dfacLogo} alt={`${dfac.dfacName} logo`} />
@@ -45,8 +47,8 @@ function DfacCard( { dfac }) {
                 `${dfac.dfacName} address and phone number`
             </div>
             <p>{dfac.flashMsg1}</p>
-            <p>{address.street} {address.bldgnum}</p>
-            <p>{address.city} {address.state}{address.zip}</p>
+            <p>{dfac.street} {dfac.bldgnum}</p>
+            <p>{dfac.city} {dfac.state}{dfac.zip}</p>
             <p>dfac.dfacPhone</p>
         </div>
     );
