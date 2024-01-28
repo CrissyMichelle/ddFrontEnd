@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect} from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import DdashApi from "../api";
 
@@ -11,4 +11,73 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('authToken') || null);
     const [currentUser, setCurrentUser] = useState(localStorage.getItem('usesrname') || '');
-}
+
+    // updating the token state causes the following effect
+    // decodes the user's token and enables authentication
+    useEffect(() => {
+        DdashApi.token = token;
+
+        try {
+            if (token) {
+                const user = jwtDecode(token);
+                setCurrentUser(user.username);
+            } else setCurrentUser('');
+        } catch (err) {
+            console.error("Error decoding token: ", err);
+            setCurrentUser(null);
+        }
+    }, [token]);
+
+    function signup(newToken) {
+        setToken(newToken);
+    }
+
+    function login(newToken) {
+        const user = jwtDecode(newToken);
+        localStorage.setItem('authToken', newToken);
+        localStorage.setItem('username', user.username);
+
+        setToken(newToken);
+        setCurrentUser(user.username);
+
+        DdashApi.token = newToken;
+    }
+
+    function logout() {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
+
+        setToken(null);
+        setCurrentUser('');
+    }
+
+    // if !token is false then the user must be logged in
+    // a valid token in token state means an authenticated user logged in
+    const isLoggedIn = !(!token);
+
+    // contextValue object contains all the necessary authentication provision properties
+    const contextValue = {
+        signup, token, setToken, currentUser, isLoggedIn, login, logout
+    };
+
+    /** returning the AuthContext.Provider component, a special React component
+    *  that allows props to be passed down to all of the child components
+    *  nested inside the provider.
+    * 
+    * Any child components inside the authentication context can access the auth
+    * methods and state passed in the `value` property
+    * 
+    * Essentially any part of the app placed inside the provider can verify 
+    *  or set a user's token
+    */ 
+    return (
+        <AuthContext.Provider value={{ signup, token, setToken, currentUser, isLoggedIn, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+// convenient hook for accessing the authentication context
+// useAuth simplifies the usage by giving components auth access without
+// having to use `useContext(AuthContext)` directly every time
+export const useAuth = () => useContext(AuthContext);

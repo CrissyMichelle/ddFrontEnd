@@ -2,6 +2,10 @@ import React from 'react';
 import './App.css';
 import culinaryImg from './images/culinary1.png';
 
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { AuthProvider, useAuth } from './components/AuthContext';
+import AuthRoute from './routes/AuthRoute';
+
 function App() {
   return (
     <div className="App">
@@ -28,6 +32,15 @@ function App() {
           right meal with the right nutrition using a Soldier's meal card to supplement
           their lifestyle.
         </p> */}
+      <AuthProvider>
+        <Router>
+        <Link to="/auth/customer/login">Go to Auth Route</Link>
+          <Routes>
+            <Route path="/auth/customer/login" element={<AuthRoute />} />
+            
+          </Routes>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }
