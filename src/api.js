@@ -75,6 +75,25 @@ class DdashApi {
         let res = await this.request('meals', filters);
         return res.meals;
     }
+
+    /** POST new order */
+    static async addMealToOrder(username, mealID) {
+        try {
+            let customerRes = await this.request(`customers/${username}`);
+            const customerID = customerRes.customerID;
+
+            let mealRes = await this.request(`meals/${mealID}`);
+            const dfacID = mealRes.dfacID;
+
+            let res = await this.request(`orders`, {customerID, dfacID, mealID}, 'post');
+            console.log("A customer placed an order: ", res);
+            return res;
+        } catch (err) {
+            console.error("Error ordering meal: ", err);
+            let message = err.response?.data?.error?.message;
+            throw Array.isArray(message) ?  message : [message];
+        }
+    }
 }
 
 export default DdashApi;

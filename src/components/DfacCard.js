@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DdashApi from "../api";
 import { Link } from "react-router-dom";
 
 function DfacCard( { dfac }) {
-    let meals = async () => {
-        try {
-            await DdashApi.getMeals();
-        } catch (err) {
-            console.error("Error fetching meals data: ", err);
-        }
-    };
-    const filterMealsByDfac = meals.filter(meal => {
+    const [meals, setMeals] = useState([]);
+
+    useEffect(() => {
+        const fetchMeals = async () => {
+            try {
+                const fetchedMeals = await DdashApi.getMeals();
+                setMeals(fetchedMeals);
+            } catch (err) {
+                console.error("Error fetching meals data: ", err);
+            }
+        };
+
+        fetchMeals();
+    }, []);
+    
+    const filterMealsByDfac = meals.filter(meal => 
         meal.dfacID === dfac.dfacID
-    });
+    );
 
     return (
         <div className="dfac-card">
@@ -47,7 +55,7 @@ function DfacCard( { dfac }) {
                 `${dfac.dfacName} address and phone number`
             </div>
             <p>{dfac.flashMsg1}</p>
-            <p>{dfac.street} {dfac.bldgnum}</p>
+            <p>{dfac.street} {dfac.bldgNum}</p>
             <p>{dfac.city} {dfac.state}{dfac.zip}</p>
             <p>dfac.dfacPhone</p>
         </div>
