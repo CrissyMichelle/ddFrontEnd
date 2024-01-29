@@ -6,6 +6,7 @@ import AuthRoute from './routes/AuthRoute';
 import NavBar from './components/NavBar';
 import HomeRoute from './routes/HomeRoute';
 import DfacsRoute from './routes/DfacsRoute';
+import MealsRoute from './routes/MealsRoute';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/auth/customer/login" element={<AuthRoute />} />
             <Route path="/" element={<HomeRoute />} />
             <Route path="/auth/dfacs" element={<DfacsRoute />} />
+            <Route path="/meals" element={<MealsRoute />} />
           </Routes>
         </Router>
       </AuthProvider>
