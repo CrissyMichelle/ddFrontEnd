@@ -1,24 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function MealCard( { meal, handleOrder, hasOrdered }) {
+function MealCard( { meal, dfac, handleOrder, hasOrdered }) {
+    //check if dfac data provided and set a flag
+    const hasDfacData = dfac && dfac.dfacID && dfac.dfacName;
+
     return (
         <li>
             <h3>
-                <b>{meal.mealName}</b> at 
-                <Link to={`/auth/${meal.dfacID}`}>{meal.dfacName}</Link>
+                <b>{meal.mealName}</b> at <br></br>
+                {hasDfacData && (
+                    <>
+                        {' available at '}
+                        <Link to={`/auth/${dfac.dfacID}`}> {dfac.dfacName}</Link>
+                    </>
+                )}              
             </h3>
             <img src={meal.imgPic} alt={`Meal: ${meal.mealName}`} />
             <p>{meal.description}</p>
-            <ul>
-             {meal.items.map((item, index) => (
-                <React.Fragment key={index}>
-                    <li>{item.menuItem}</li>
-                    <li>Performance level: {item.colorCode}</li>
-                    <li>Sodium level: {item.sodiumLvl}</li>
-                </React.Fragment>
-             ))}   
-            </ul>
+            {meal.items && Array.isArray(meal.items) && (
+                <ul>
+                 {meal.items.map((item, index) => (
+                    <React.Fragment key={index}>
+                        <li>{item.menuItem}</li>
+                        <li>Performance level: {item.colorCode}</li>
+                        <li>Sodium level: {item.sodiumLvl}</li>
+                    </React.Fragment>
+                 ))}   
+                </ul>
+            )}
             <button
                 onClick={() => handleOrder(meal.mealID)}
                 disabled={hasOrdered}

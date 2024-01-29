@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext } from "react";
 import DdashApi from "../api";
 import MealList from "../components/MealList";
 import { AuthContext } from "../components/AuthContext";
+import MealCard from "../components/MealCard";
 
 function MealsRoute() {
     const { currentUser } = useContext(AuthContext);
@@ -54,6 +55,26 @@ function MealsRoute() {
         }
     };
 
+    const renderMeals = () => {
+        if (!meals || !Array.isArray(meals) || meals.length === 0) {
+            return <div>No meals available or data passed incorrectly.</div>;
+        }
+
+        return (
+            <ul>
+                {meals.map((meal) => (
+                    <MealCard
+                        key={meal.mealID}
+                        meal={meal}
+                        dfac={meal.dfacID}
+                        handleOrder={handleOrder}
+                        hasOrdered={orderMeal && orderMeal.has(meal.mealID)}
+                    />
+                ))}
+            </ul>
+        );
+    };
+
     if (errors) return <p>Error loading meals.</p>
     if (isLoading) return <p>Loading meals... ...</p>
 
@@ -75,13 +96,7 @@ function MealsRoute() {
                 />
                 <button type="submit">Search</button>
             </form>
-            {meals && (
-                <MealList 
-                    meals={meals} 
-                    orderedMeal={orderMeal} 
-                    handleOrder={handleOrder}
-                />
-            )}
+            {renderMeals()}
         </div>
     );
 }

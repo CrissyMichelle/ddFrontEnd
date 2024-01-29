@@ -71,9 +71,15 @@ class DdashApi {
     }
 
     /** GET all meals with optional search parameters */
-    static async getMeals(filters = {}) {
-        let res = await this.request('meals', filters);
+    static async getMeals() {
+        let res = await this.request('meals');
         return res.meals;
+    }
+
+    /** GET details on a specific dfac, including all meals */
+    static async getDfacDetails(dfacID) {
+        const res = await this.request(`auth/${dfacID}`);
+        return res.dfac;
     }
 
     /** POST new order */
