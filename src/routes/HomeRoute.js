@@ -2,6 +2,8 @@ import React from 'react';
 import { useAuth } from '../components/AuthContext';
 import './HomeRoute.css';
 import culinaryImg from '../images/culinary1.png';
+import { Link } from 'react-router-dom';
+import MealsRoute from './MealsRoute';
 
 function HomeRoute() {
     const { isLoggedIn, currentUser } = useAuth();
@@ -14,14 +16,7 @@ function HomeRoute() {
                 <img src={culinaryImg} className="Home-logo" alt="logo" />
                 <p>
                 </p>
-                <a
-                  className="Home-link"
-                  href="https://reactjs.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Menus
-                </a>
+                <Link to="meals">Meals</Link>
             </header>
         </div>
     );

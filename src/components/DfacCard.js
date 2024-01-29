@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from "react";
 import DdashApi from "../api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function DfacCard( { dfac }) {
-    const [meals, setMeals] = useState([]);
+    const [dfacDetails, setDfacDetails] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchMeals = async () => {
+        const fetchedDfacDetails = async () => {
             try {
-                const fetchedMeals = await DdashApi.getMeals();
-                setMeals(fetchedMeals);
+                const details = await DdashApi.getDfacDetails(dfac.dfacID);
+                setDfacDetails(details);
             } catch (err) {
-                console.error("Error fetching meals data: ", err);
+                console.error("Error fetching dfac data: ", err);
             }
         };
 
-        fetchMeals();
-    }, []);
+        fetchedDfacDetails();
+    }, [dfac.dfacID]);
     
-    const filterMealsByDfac = meals.filter(meal => 
-        meal.dfacID === dfac.dfacID
-    );
+    console.log("Meals object with dfac details: ", dfacDetails);
+    const handleMealListNavigation = () => {
+        navigate(`/meals/dfac/${dfac.dfacID}`, { state: dfacDetails });
+    };
+
+    if (!dfacDetails) {
+        return <div>Loading... ...</div>;
+    }
 
     return (
         <div className="dfac-card">
             <img src={dfac.dfacLogo} alt={`${dfac.dfacName} logo`} />
-            <Link to={`/auth/${dfac.dfacID}`}>
-                <h2>{dfac.dfacName}</h2>
-            </Link>
-            <Link to={filterMealsByDfac}>
-                <h3>Available Meals</h3>
-            </Link>
+            <button onClick={handleMealListNavigation}>View Available Meals</button>
             <h2><b>Hours</b></h2>
             <h3>Monday - Friday</h3>
             <p>Breakfast</p>

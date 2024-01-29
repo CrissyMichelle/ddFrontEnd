@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import HomeRoute from './routes/HomeRoute';
 import DfacsRoute from './routes/DfacsRoute';
 import MealsRoute from './routes/MealsRoute';
+import MealList from './components/MealList';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<HomeRoute />} />
             <Route path="/auth/dfacs" element={<DfacsRoute />} />
             <Route path="/meals" element={<MealsRoute />} />
+            <Route path="/meals/dfac/:dfacID" element={<MealList />} />
           </Routes>
         </Router>
       </AuthProvider>
