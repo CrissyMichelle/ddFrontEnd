@@ -1,0 +1,43 @@
+.meals-route-container {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.meals-route-container h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+.meals-search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.meals-search-form input {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: calc(50% - 20px);
+}
+
+.meals-search-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .meals-search-form input,
+    .meals-search-form button {
+        width: 100%;
+    }
+}

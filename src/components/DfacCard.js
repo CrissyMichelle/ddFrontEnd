@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DdashApi from "../api";
 import { Link, useNavigate } from "react-router-dom";
+import "./DfacCard.css";
 
 function DfacCard( { dfac }) {
     const [dfacDetails, setDfacDetails] = useState(null);
@@ -53,12 +54,12 @@ function DfacCard( { dfac }) {
             <p>{dfac.orderBch}</p>
             <p>{dfac.orderSup}</p>
             <div>
-                `${dfac.dfacName} address and phone number`
+                {`${dfac.dfacName} address and phone number`}
             </div>
             <p>{dfac.flashMsg1}</p>
             <p>{dfac.street} {dfac.bldgNum}</p>
             <p>{dfac.city} {dfac.state}{dfac.zip}</p>
-            <p>dfac.dfacPhone</p>
+            <p>{dfac.dfacPhone}</p>
         </div>
     );
 }
