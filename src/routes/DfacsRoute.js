@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DdashApi from "../api";
 import DfacCard from "../components/DfacCard";
+import "./DfacsRoute.css";
 
 function DfacsRoute() {
     const [dfacs, setDfacs] = useState(null);
@@ -38,9 +39,9 @@ function DfacsRoute() {
     if (!dfacs) return <p>Loading DFACs ... ...</p>;
 
     return (
-        <div>
+        <div className="dfacs-container">
             <h1>Dining Facilities</h1>
-            <form onSubmit={handleSearch}>
+            <form className="search-form" onSubmit={handleSearch}>
                 <input
                     type="text"
                     placeholder="Search DFACs by name, address, or hours"
@@ -49,7 +50,7 @@ function DfacsRoute() {
                 />
                 <button type="submit">Search</button>
             </form>
-            <div>
+            <div className="dfac-card">
                 {dfacs.map(dfac => (
                     <DfacCard key={dfac.dfacID} dfac={dfac} />
                 ))}

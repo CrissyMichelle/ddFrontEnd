@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import MealCard from "./MealCard";
 import { useLocation } from "react-router-dom";
 import DdashApi from "../api";
+import "./MealList.css";
 
 function MealList( { handleOrder }) {
     const location = useLocation();
@@ -32,7 +33,7 @@ function MealList( { handleOrder }) {
     }
 
     return (
-        <ul>
+        <ul className="meal-list">
             {meals.map((meal) => (
                 <MealCard
                     key={meal.mealID}

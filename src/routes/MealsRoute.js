@@ -3,6 +3,7 @@ import DdashApi from "../api";
 import MealList from "../components/MealList";
 import { AuthContext } from "../components/AuthContext";
 import MealCard from "../components/MealCard";
+import "./MealsRoute.css";
 
 function MealsRoute() {
     const { currentUser } = useContext(AuthContext);
@@ -79,9 +80,9 @@ function MealsRoute() {
     if (isLoading) return <p>Loading meals... ...</p>
 
     return (
-        <div>
+        <div className="meals-route-container">
             <h1>Meals</h1>
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearch} className="meals-search-form">
                 <input
                     type="text"
                     placeholder="Search meals by name"

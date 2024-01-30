@@ -6,9 +6,9 @@ function MealCard( { meal, dfac, handleOrder, hasOrdered }) {
     const hasDfacData = dfac && dfac.dfacID && dfac.dfacName;
 
     return (
-        <li>
+        <li className="meal-card">
             <h3>
-                <b>{meal.mealName}</b> at <br></br>
+                <b>{meal.mealName}</b><br></br>
                 {hasDfacData && (
                     <>
                         {' available at '}
