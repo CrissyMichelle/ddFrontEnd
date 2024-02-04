@@ -4,20 +4,25 @@ import DdashApi from "../api";
 import RoleAuth from "../components/RoleAuth";
 import './AuthRoute.css';
 
-function CustomerSignUp({ signup }) {
+function CookSignUp({ signup }) {
     // Initialize an object for storing the state of each input field
     const [formData, setFormData] = useState({
+        dfacID: '',
         username: '',
         password: '',
+        rank: '',
         firstName: '',
         lastName: '',
         dodid: '',
-        mealCard: true,
+        email: '',
         isAdmin: false,
-        role: "customer"
+        isManager: false,
+        role: '92G'
     });
     const [isAdmin, setIsAdmin] = useState(false);
     const [adminVerified, setAdminVerified] = useState(false);
+    const [isManager, setIsManager] = useState(false);
+    const [managerVerified, setManagerVerified] = useState(false);
 
     const [errors, setErrors] = useState(null);
     const navigate = useNavigate();
@@ -27,6 +32,8 @@ function CustomerSignUp({ signup }) {
         const { name, type, value, checked } = event.target;
         if (name === 'isAdmin') {
             setIsAdmin(checked);
+        } else if (name === 'isManager') {
+            setIsManager(checked)
         } else {
             setFormData({
                 ...formData,
@@ -53,14 +60,19 @@ function CustomerSignUp({ signup }) {
             setErrors(['Error with admin verification']);
             return;
         }
+        if (isManager && !managerVerified) {
+            setErrors(['Error with manager verification']);
+            return;
+        }
 
         try {
-            const { token } = await DdashApi.registerCustomer(formData);
+            // write async registerCustomer function in DdashApi.js
+            const { token } = await DdashApi.registerCook(formData);
 
             if (token) {
                 // function that processes token?
                 signup(token);
-                navigate('/meals');
+                navigate('/auth/dfacs');
             }
         } catch (errs) {
             console.error(errs);
@@ -71,14 +83,18 @@ function CustomerSignUp({ signup }) {
 
     return (
         <form className="form" onSubmit={handleSubmit}>
+            <input type="text" name="dfacID"   placeholder="DFAC ID number" value={formData.dfacID} onChange={handleChange} />
             <input type="text" name="username"   placeholder="Username" value={formData.username} onChange={handleChange} />
             <input type="text" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+            <input type="text" name="rank" placeholder="Rank" value={formData.rank} onChange={handleChange} />
             <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
             <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
             <input type="text" name="dodid" placeholder="DODID" value={formData.dodid} onChange={handleChange} />
+            <input type="text" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+            
             <label>
-                Meal Card? (check for Yes)
-                <input type="checkbox" name="mealCard" checked={formData.mealCard} onChange={handleChange} />
+                DFAC Manager? (check for Yes)
+                <input type="checkbox" name="isManager" checked={isManager} onChange={handleChange} />
                 <span className="checkmark"></span>
             </label>
             <label>
@@ -86,14 +102,15 @@ function CustomerSignUp({ signup }) {
                 <input type="checkbox" name="isAdmin" checked={isAdmin} onChange={handleChange} />
                 <span className="checkmark"></span>
             </label>
-            {/* passing down setAdminVerified as a function that can update the state inside parent component CustomerSignUp
+            {/* passing down set___Verified as a function that can update the state inside parent component CustomerSignUp
             triggers an update to the state based on an action within the child receiving the function as props */}
+            {isManager && !managerVerified && <RoleAuth role={"manager"} onVerified={setManagerVerified} />}
             {isAdmin && !adminVerified && <RoleAuth role={"admin"} onVerified={setAdminVerified} />}
 
-            <button type="submit">Sign Up!</button>
+            <button type="submit">Create Account</button>
             {errors && <div>{errors}</div>}
         </form>
     );
 }
 
-export default CustomerSignUp;
+export default CookSignUp;

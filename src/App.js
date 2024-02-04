@@ -9,6 +9,7 @@ import DfacsRoute from './routes/DfacsRoute';
 import MealsRoute from './routes/MealsRoute';
 import MealList from './components/MealList';
 import CustomerSignUp from './routes/CustomerSignUp';
+import CookSignUp from './routes/CookSignUp';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/meals" element={<MealsRoute />} />
             <Route path="/meals/dfac/:dfacID" element={<MealList />} />
             <Route path="/auth/register/customer" element={<CustomerSignUp />} />
+            <Route path="/auth/register/92G" element={<CookSignUp />} />
           </Routes>
         </Router>
       </AuthProvider>
