@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DdashApi from "../api";
 import RoleAuth from "../components/RoleAuth";
 import './AuthRoute.css';
+import { useAuth } from "../components/AuthContext";
 
-function CookSignUp({ signup }) {
+function CookSignUp() {
+    const { signup } = useAuth();
+
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [adminVerified, setAdminVerified] = useState(false);
+    const [isManager, setIsManager] = useState(false);
+    const [managerVerified, setManagerVerified] = useState(false);
+
     // Initialize an object for storing the state of each input field
     const [formData, setFormData] = useState({
         dfacID: '',
@@ -17,12 +25,12 @@ function CookSignUp({ signup }) {
         email: '',
         isAdmin: false,
         isManager: false,
+        updateMenu: isManager && managerVerified,
+        updateHours: isManager && managerVerified,
+        updateMeals: isManager && managerVerified,
+        updateOrders: isManager && managerVerified,
         role: '92G'
     });
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [adminVerified, setAdminVerified] = useState(false);
-    const [isManager, setIsManager] = useState(false);
-    const [managerVerified, setManagerVerified] = useState(false);
 
     const [errors, setErrors] = useState(null);
     const navigate = useNavigate();
@@ -34,6 +42,19 @@ function CookSignUp({ signup }) {
             setIsAdmin(checked);
         } else if (name === 'isManager') {
             setIsManager(checked)
+        } else if (name === 'isManager') {
+            setIsManager(checked)
+        } else if (name === 'dfacId') {
+            const dfacIDVal = parseInt(value, 10);
+
+            if (!isNaN(dfacIDVal) && dfacIDVal >= 1 && dfacIDVal <= 10) {
+                setFormData({
+                    ...formData,
+                    [name]: type === 'checkbox' ? checked : dfacIDVal 
+                });
+            } else {
+                setErrors(['DFAC ID number must be a valid integer between 1 and 10']);
+            }
         } else {
             setFormData({
                 ...formData,
@@ -81,11 +102,26 @@ function CookSignUp({ signup }) {
         }
     };
 
+    // useMemo hook memoizes the RoleAuth component
+    const roleAuthComponent = useMemo(() => {
+        console.log("Is admin? ", isAdmin);
+        console.log("Verified admin? ", adminVerified);
+
+        return isAdmin && !adminVerified ? <RoleAuth role={"admin"} onVerified={setAdminVerified} /> : null        
+    }, [isAdmin, adminVerified]); // only re-renders UI when isAdmin and adminVerified change
+
+    const managerAuthComponent = useMemo(() => {
+        console.log("Is manager? ", isManager);
+        console.log("Verified manager? ", managerVerified);
+
+        return isManager && !managerVerified ? <RoleAuth role={"manager"} onVerified={setManagerVerified} /> : null        
+    }, [isManager, managerVerified]);
+
     return (
         <form className="form" onSubmit={handleSubmit}>
             <input type="text" name="dfacID"   placeholder="DFAC ID number" value={formData.dfacID} onChange={handleChange} />
             <input type="text" name="username"   placeholder="Username" value={formData.username} onChange={handleChange} />
-            <input type="text" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
             <input type="text" name="rank" placeholder="Rank" value={formData.rank} onChange={handleChange} />
             <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
             <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
@@ -102,11 +138,8 @@ function CookSignUp({ signup }) {
                 <input type="checkbox" name="isAdmin" checked={isAdmin} onChange={handleChange} />
                 <span className="checkmark"></span>
             </label>
-            {/* passing down set___Verified as a function that can update the state inside parent component CustomerSignUp
-            triggers an update to the state based on an action within the child receiving the function as props */}
-            {isManager && !managerVerified && <RoleAuth role={"manager"} onVerified={setManagerVerified} />}
-            {isAdmin && !adminVerified && <RoleAuth role={"admin"} onVerified={setAdminVerified} />}
-
+            {managerAuthComponent}
+            {roleAuthComponent}
             <button type="submit">Create Account</button>
             {errors && <div>{errors}</div>}
         </form>
