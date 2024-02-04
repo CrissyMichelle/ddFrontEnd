@@ -8,6 +8,7 @@ import HomeRoute from './routes/HomeRoute';
 import DfacsRoute from './routes/DfacsRoute';
 import MealsRoute from './routes/MealsRoute';
 import MealList from './components/MealList';
+import CustomerSignUp from './routes/CustomerSignUp';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/auth/dfacs" element={<DfacsRoute />} />
             <Route path="/meals" element={<MealsRoute />} />
             <Route path="/meals/dfac/:dfacID" element={<MealList />} />
+            <Route path="/auth/register/customer" element={<CustomerSignUp />} />
           </Routes>
         </Router>
       </AuthProvider>
