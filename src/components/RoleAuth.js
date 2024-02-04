@@ -30,11 +30,11 @@ function RoleAuth({ onVerified, role }) {
     const placeholderText = role === 'admin' ? "Admin Verification Code" : "Manager Verification Code";
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="password" name="verificationCode" placeholder={placeholderText} onChange={handleChange} />
-            <button type="submit" className="verify-button">Verify</button>
+        <div>
+            <input type="text" name="verificationCode" placeholder={placeholderText} onChange={handleChange} />
+            <button type="submit" className="verify-button"  onClick={handleSubmit}>Verify</button>
             {errors && <div className="errors">{errors}</div>}
-        </form>
+        </div>
     );
 }
 
