@@ -10,7 +10,7 @@ export const AuthContext = createContext();
 // components needing context nest inside the authentication context provider
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('authToken') || null);
-    const [currentUser, setCurrentUser] = useState(localStorage.getItem('usesrname') || '');
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem('username') || '');
 
     // updating the token state causes the following effect
     // decodes the user's token and enables authentication

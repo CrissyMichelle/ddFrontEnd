@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DdashApi from "../api";
+import { useAuth } from "../components/AuthContext";
 import RoleAuth from "../components/RoleAuth";
 import './AuthRoute.css';
 
-function CustomerSignUp({ signup }) {
+function CustomerSignUp() {
+    const { signup } = useAuth();
+
     // Initialize an object for storing the state of each input field
     const [formData, setFormData] = useState({
         username: '',
@@ -33,6 +36,7 @@ function CustomerSignUp({ signup }) {
                 [name]: type === 'checkbox' ? checked : value 
             });
         }
+        console.log("Form data: ", formData);
     };
 
     // Handle the onSubmit event
@@ -58,7 +62,8 @@ function CustomerSignUp({ signup }) {
             const { token } = await DdashApi.registerCustomer(formData);
 
             if (token) {
-                // function that processes token?
+                console.log("Signup function: ", signup);
+                // AuthContext function that processes token
                 signup(token);
                 navigate('/meals');
             }
@@ -67,12 +72,21 @@ function CustomerSignUp({ signup }) {
             const message = errs.response?.data?.error?.message || ['Signup failed'];
             setErrors(Array.isArray(message) ? message : [message]);
         }
+        console.log("Form data: ", formData);
     };
+
+    // useMemo hook memoizes the RoleAuth component
+    const roleAuthComponent = useMemo(() => {
+        console.log("Is admin? ", isAdmin);
+        console.log("Verified admin? ", adminVerified);
+
+        return isAdmin && !adminVerified ? <RoleAuth role={"admin"} onVerified={setAdminVerified} /> : null        
+    }, [isAdmin, adminVerified]); // only re-renders UI when isAdmin and adminVerified change
 
     return (
         <form className="form" onSubmit={handleSubmit}>
             <input type="text" name="username"   placeholder="Username" value={formData.username} onChange={handleChange} />
-            <input type="text" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
             <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
             <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
             <input type="text" name="dodid" placeholder="DODID" value={formData.dodid} onChange={handleChange} />
@@ -87,9 +101,9 @@ function CustomerSignUp({ signup }) {
                 <span className="checkmark"></span>
             </label>
             {/* passing down setAdminVerified as a function that can update the state inside parent component CustomerSignUp
-            triggers an update to the state based on an action within the child receiving the function as props */}
-            {isAdmin && !adminVerified && <RoleAuth role={"admin"} onVerified={setAdminVerified} />}
-
+            triggers an update to the state based on an action within the child receiving the function as props 
+            then call useMemo hook function prevents unnecessary re-renders and preserves the parent's form state */}
+            {roleAuthComponent}
             <button type="submit">Sign Up!</button>
             {errors && <div>{errors}</div>}
         </form>

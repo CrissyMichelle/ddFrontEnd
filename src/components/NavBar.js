@@ -56,8 +56,9 @@ function NavBar() {
                         <Link to="/auth/dfacs">DFACs</Link>
                         {isLoggedIn ? (
                             <>
-                                <Link to="/profile">Profile</Link>
-                                <span>Welcome, {currentUser}</span>
+                                <Link to="/profile">
+                                    <span>Welcome, {currentUser}</span>
+                                </Link>
                                 <button onClick={handleLogout}>Logout</button>
                             </>
                         ) : (
@@ -65,7 +66,7 @@ function NavBar() {
                                 <Link to="/auth/customer/login">Login</Link>           
                             </>
                         )}
-                        <Link to="/">Contact</Link>
+                        <Link to="/">Cart</Link>
                     </>
                 ) : null}
             </div>
