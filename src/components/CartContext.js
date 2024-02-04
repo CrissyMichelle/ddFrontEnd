@@ -11,6 +11,10 @@ export const CartProvider = ({ children }) => {
         setCartItems(currentItems => [...currentItems, meal]);
     };
 
+    const cartCount = () => {
+        return cartItems.length;
+    }
+
     const removeFromCart = (mealID) => {
         setCartItems(currentItems => currentItems.filter(item => item.mealID !== mealID));
     };
@@ -20,7 +24,7 @@ export const CartProvider = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, cartCount, removeFromCart, clearCart }}>
             {children}
         </CartContext.Provider>
     );

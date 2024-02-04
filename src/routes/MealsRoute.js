@@ -1,17 +1,21 @@
 import React, {useState, useEffect, useContext } from "react";
 import DdashApi from "../api";
 import MealList from "../components/MealList";
-import { AuthContext } from "../components/AuthContext";
+import { AuthContext, useAuth } from "../components/AuthContext";
+import { useCart } from "../components/CartContext";
 import MealCard from "../components/MealCard";
 import "./MealsRoute.css";
 
+
 function MealsRoute() {
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser } = useAuth();
+    const { addToCart, cartCount } = useCart();
+
     const [meals, setMeals] = useState(null);
     // search and filter managed by a local state
     const [searchTerm, setSearchTerm] = useState("");
     const [itemsLike, setItemsLike] = useState("");
-    const [orderMeal, setOrderMeal] = useState(null);
+    const [orderMeal, setOrderMeal] = useState(new Set());
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState(null);
 
@@ -38,22 +42,24 @@ function MealsRoute() {
     };
 
     useEffect(() => {
+        console.log("MealsRoute - Current User: ", currentUser);
         fetchMeals();
     }, []);
 
-    const handleOrder = async (mealID, dfacID) => {
-        if (orderMeal.has(mealID)) {
+    const handleOrder = (mealID, dfacID) => {
+        console.log("Adding to cart meal: ", mealID, " from DFAC: ", dfacID);
+        const mealToAdd = { mealID, dfacID };
+
+        if (orderMeal && orderMeal.has(mealID)) {
             console.log("Already ordered meal: ", mealID);
             return;
         }
 
-        try {
-            await DdashApi.addMealToOrder(currentUser.username, mealID, dfacID);
-            setOrderMeal(orderMeal, mealID);
-        } catch (err) {
-            console.error("Error placing order: ", err);
-            setErrors(err);
-        }
+        addToCart(mealToAdd);
+        console.log(`Cart now has ${cartCount()} meals.`);
+
+        const updatedOrderedMeal = new Set(orderMeal).add(mealID);
+        setOrderMeal(updatedOrderedMeal);      
     };
 
     const renderMeals = () => {

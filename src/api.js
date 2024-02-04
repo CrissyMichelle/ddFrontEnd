@@ -82,15 +82,15 @@ class DdashApi {
         return res.dfac;
     }
 
+    /** GET details on a specific customer */
+    static async getCustomerDeets(username) {
+        const res = await this.request(`customers/${username}`);
+        return res.customer;
+    }
+
     /** POST new order */
-    static async addMealToOrder(username, mealID) {
+    static async addMealToOrder(customerID, mealID, dfacID) {
         try {
-            let customerRes = await this.request(`customers/${username}`);
-            const customerID = customerRes.customerID;
-
-            let mealRes = await this.request(`meals/${mealID}`);
-            const dfacID = mealRes.dfacID;
-
             let res = await this.request(`orders`, {customerID, dfacID, mealID}, 'post');
             console.log("A customer placed an order: ", res);
             return res;

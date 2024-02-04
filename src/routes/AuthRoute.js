@@ -40,6 +40,7 @@ function AuthRoute() {
             if (token) {
                 login(token);
                 navigate('/meals');
+                console.log("Customer data: ", await DdashApi.getCustomerDeets(formData.username));
             } else {
                 setErrors(['Login failed']);
             }
