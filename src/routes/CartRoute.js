@@ -1,37 +1,43 @@
 import React, { useContext, useState } from "react";
 import DdashApi from "../api";
-import { AuthContext } from "../components/AuthContext";
+import { AuthContext, useAuth } from "../components/AuthContext";
 import { useCart } from "../components/CartContext";
 import MealCard from "../components/MealCard";
 import { Link } from "react-router-dom";
 import './CartRoute.css';
 
 function CartRoute() {
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser } = useAuth();
     const { cartItems, removeFromCart, clearCart } = useCart();
     const [meals, setMeals] = useState(null);
     const [orderMeal, setOrderMeal] = useState(new Map());
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState(null);
 
-    const handleSubmit = async (mealID, dfacID) => {
+    const handleOrderSubmission = async () => {
         if (!cartItems.length) {
             alert('Your cart is empty.');
             return;
         }
 
-        if (orderMeal && orderMeal.has(mealID)) {
-            console.log("Already ordered meal: ", mealID);
-            return;
-        }
+        setIsLoading(true);
 
-        try {
-            await DdashApi.addMealToOrder(currentUser.username, mealID, dfacID);
-            clearCart();
-        } catch (err) {
-            console.error("Error placing order: ", err);
-            setErrors(err.toString());
+        for (const meal of cartItems) {
+            try {
+                console.log("Placing order for username: ", currentUser, " meal ", meal.mealID, " at dfac ", meal.dfacID)
+                const user = await DdashApi.getCustomerDeets(currentUser);
+                console.log("Customer's ID from their username: ",user.customerID, "DFAC ID from meal ID: ", meal.dfacID);
+
+                await DdashApi.addMealToOrder(user.customerID, meal.mealID, meal.dfacID);
+                alert('Your order has been placed!');
+            } catch (err) {
+                console.error("Error placing order: ", err);
+                setErrors(err.toString());
+                break;
+            }
         }
+        clearCart();
+        setIsLoading(false);        
     };
 
     return (
@@ -46,7 +52,7 @@ function CartRoute() {
                             </li>
                         ))}
                     </ul>
-                    <button type="submit" onClick={handleSubmit}>Place Order</button>            
+                    <button type="submit" onClick={handleOrderSubmission} className="button">Place Order</button>            
                 </>
             ) : (
                 <div className="cartP">

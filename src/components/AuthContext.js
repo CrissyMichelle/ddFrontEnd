@@ -9,6 +9,8 @@ export const AuthContext = createContext();
 // AuthContext provides authentication value to child components
 // components needing context nest inside the authentication context provider
 export const AuthProvider = ({ children }) => {
+    console.log("Initial token from localStorage: ", localStorage.getItem('authToken'));
+    console.log("Initial username from localStorage: ", localStorage.getItem('username'));
     const [token, setToken] = useState(localStorage.getItem('authToken') || null);
     const [currentUser, setCurrentUser] = useState(localStorage.getItem('username') || '');
 
@@ -20,6 +22,7 @@ export const AuthProvider = ({ children }) => {
         try {
             if (token) {
                 const user = jwtDecode(token);
+                console.log("Decoded user from token: ", user);
                 setCurrentUser(user.username);
             } else setCurrentUser('');
         } catch (err) {
@@ -34,16 +37,19 @@ export const AuthProvider = ({ children }) => {
 
     function login(newToken) {
         const user = jwtDecode(newToken);
+        console.log("Decoded user from token: ", user);
         localStorage.setItem('authToken', newToken);
         localStorage.setItem('username', user.username);
 
         setToken(newToken);
         setCurrentUser(user.username);
+        console.log("Current user set to: ", user.username);
 
         DdashApi.token = newToken;
     }
 
     function logout() {
+        console.log("User logging out: ", currentUser);
         localStorage.removeItem('authToken');
         localStorage.removeItem('username');
 
@@ -70,6 +76,7 @@ export const AuthProvider = ({ children }) => {
     * Essentially any part of the app placed inside the provider can verify 
     *  or set a user's token
     */ 
+   console.log("AuthProvider context value: ", contextValue);
     return (
         <AuthContext.Provider value={{ signup, token, setToken, currentUser, isLoggedIn, login, logout }}>
             {children}
