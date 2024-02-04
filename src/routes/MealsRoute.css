@@ -27,12 +27,16 @@
 }
 
 .meals-search-form button {
-    background-color: #4CAF50;
+    background-color: #333;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: pointer
+}
+
+.meals-search-form button:hover {
+    background-color: #45a049;
 }
 
 @media (max-width: 768px) {
