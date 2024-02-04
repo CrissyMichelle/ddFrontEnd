@@ -66,7 +66,7 @@ function NavBar() {
                                 <Link to="/auth/customer/login">Login</Link>           
                             </>
                         )}
-                        <Link to="/">Cart</Link>
+                        <Link to="/cart">Cart</Link>
                     </>
                 ) : null}
             </div>

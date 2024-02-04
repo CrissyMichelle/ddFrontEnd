@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from './CartContext'
+import './MealCard.css';
 
-function MealCard( { meal, dfac, handleOrder, hasOrdered }) {
+function MealCard( { meal, dfac }) {
+    const { addToCart, removeFromCart, cartItems } = useCart();
+
+    // check if the meal is already in the cart
+    const hasOrdered = cartItems.some(item => item.mealID === meal.mealID);
+
     //check if dfac data provided and set a flag
     const hasDfacData = dfac && dfac.dfacID && dfac.dfacName;
+
+    const handleAddToCart = () => {
+        addToCart(meal);
+    };
+
+    const handleRemoveFromCart = () => {
+        removeFromCart(meal.mealID);
+    };
 
     return (
         <li className="meal-card">
             <h3>
-                <b>{meal.mealName}</b><br></br>
+                <b>{meal.mealName}</b><br />
                 {hasDfacData && (
                     <>
                         {' available at '}
@@ -29,12 +44,15 @@ function MealCard( { meal, dfac, handleOrder, hasOrdered }) {
                  ))}   
                 </ul>
             )}
-            <button
-                onClick={() => handleOrder(meal.mealID)}
-                disabled={hasOrdered}
-            >
-                {hasOrdered ? "Added to cart!" : "Add to order"}
-            </button>
+            {hasOrdered ? (
+                <button onClick={handleRemoveFromCart}>
+                    Remove from cart
+                </button>
+            ) : (
+                <button onClick={handleAddToCart}>
+                    Add to cart
+                </button>
+            )}
         </li>
     );
 }
