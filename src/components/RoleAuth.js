@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../routes/AuthRoute.css';
 
 function RoleAuth({ onVerified, role }) {
     const [verificationCode, setVerificationCode] = useState('');
@@ -31,7 +32,7 @@ function RoleAuth({ onVerified, role }) {
     return (
         <form onSubmit={handleSubmit}>
             <input type="password" name="verificationCode" placeholder={placeholderText} onChange={handleChange} />
-            <button type="submit">Verify</button>
+            <button type="submit" className="verify-button">Verify</button>
             {errors && <div className="errors">{errors}</div>}
         </form>
     );

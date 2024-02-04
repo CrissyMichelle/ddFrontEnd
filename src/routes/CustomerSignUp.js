@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DdashApi from "../api";
 import RoleAuth from "../components/RoleAuth";
+import './AuthRoute.css';
 
 function CustomerSignUp({ signup }) {
     // Initialize an object for storing the state of each input field
@@ -69,17 +70,22 @@ function CustomerSignUp({ signup }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
             <input type="text" name="username"   placeholder="Username" value={formData.username} onChange={handleChange} />
             <input type="text" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
             <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
             <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
             <input type="text" name="dodid" placeholder="DODID" value={formData.dodid} onChange={handleChange} />
-            <p>Meal Card? (check for Yes)
-            <input type="checkbox" name="mealCard" placeholder="MealCard? (Y/N)" checked={formData.mealCard} onChange={handleChange} /></p>
-            <p>Site Admin?
-            <input type="checkbox" name="isAdmin" placeholder="Site Admin?" checked={isAdmin} onChange={handleChange} /></p>
-
+            <label>
+                Meal Card? (check for Yes)
+                <input type="checkbox" name="mealCard" checked={formData.mealCard} onChange={handleChange} />
+                <span className="checkmark"></span>
+            </label>
+            <label>
+                Site Admin?
+                <input type="checkbox" name="isAdmin" checked={isAdmin} onChange={handleChange} />
+                <span className="checkmark"></span>
+            </label>
             {/* passing down setAdminVerified as a function that can update the state inside parent component CustomerSignUp
             triggers an update to the state based on an action within the child receiving the function as props */}
             {isAdmin && !adminVerified && <RoleAuth role={"admin"} onVerified={setAdminVerified} />}
