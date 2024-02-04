@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+export const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 /** API class
  * consolidates methods that send/receive data from dfacDash API

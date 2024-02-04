@@ -39,7 +39,10 @@ function NavBar() {
             <div className="logo">
                 <img src={logo} alt="logo" />
                 <img src={divLogo} alt="logo" />
-                <img src={healthLogo} alt="logo" />
+                <Link to='/'>
+                    <img src={healthLogo} alt="logo" />
+                </Link>
+                
             </div>
             <div className="nav-links">
                 {isScreenSmall && (
@@ -49,7 +52,7 @@ function NavBar() {
                 )}
                 {(isScreenSmall && isMenuOpen) || !isScreenSmall ? (
                     <>
-                        <Link to="/">About</Link>
+                        <Link to="/meals">Meals</Link>
                         <Link to="/auth/dfacs">DFACs</Link>
                         {isLoggedIn ? (
                             <>
@@ -59,9 +62,7 @@ function NavBar() {
                             </>
                         ) : (
                             <>
-                                <Link to="/auth/register/customer">Sign up</Link>
-                                <Link to="/auth/customer/login">Customer login</Link>
-                                <Link to="/auth/92G/login">Culinarians login</Link>            
+                                <Link to="/auth/customer/login">Login</Link>           
                             </>
                         )}
                         <Link to="/">Contact</Link>
