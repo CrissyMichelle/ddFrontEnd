@@ -38,13 +38,12 @@ function CookSignUp() {
     // Handle changes to the form as a user inputs data
     const handleChange = (event) => {
         const { name, type, value, checked } = event.target;
+
         if (name === 'isAdmin') {
             setIsAdmin(checked);
         } else if (name === 'isManager') {
-            setIsManager(checked)
-        } else if (name === 'isManager') {
-            setIsManager(checked)
-        } else if (name === 'dfacId') {
+            setIsManager(checked);
+        } else if (name === 'dfacID') {
             const dfacIDVal = parseInt(value, 10);
 
             if (!isNaN(dfacIDVal) && dfacIDVal >= 1 && dfacIDVal <= 10) {
@@ -55,6 +54,7 @@ function CookSignUp() {
             } else {
                 setErrors(['DFAC ID number must be a valid integer between 1 and 10']);
             }
+
         } else {
             setFormData({
                 ...formData,
