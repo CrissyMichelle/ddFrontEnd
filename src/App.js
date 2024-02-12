@@ -12,6 +12,7 @@ import MealList from './components/MealList';
 import CustomerSignUp from './routes/CustomerSignUp';
 import CookSignUp from './routes/CookSignUp';
 import CartRoute from './routes/CartRoute';
+import CustomerProfile from './components/CustomerProfile';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/auth/register/customer" element={<CustomerSignUp />} />
               <Route path="/auth/register/92G" element={<CookSignUp />} />
               <Route path="/cart" element={<CartRoute />} />
+              <Route path="/customer/profile" element={<CustomerProfile />} />
             </Routes>
         </Router>
       </CartProvider>      
