@@ -85,6 +85,7 @@ class DdashApi {
     /** GET details on a specific customer */
     static async getCustomerDeets(username) {
         const res = await this.request(`customers/${username}`);
+        console.log("getCustomerDeets output: ", res.customer);
         return res.customer;
     }
 
@@ -92,13 +93,17 @@ class DdashApi {
     static async getOrderHistory(username) {
         try {
             const customerDetails = await this.getCustomerDeets(username);
-            const orderIDs = customerDetails.orders.orderID;
+            console.log("Orders array from getOrderHistory: ", customerDetails.orders);
+
+            const orderIDs = customerDetails.orders.map(order => order.orderID);
+            console.log("Extracted orderIDs from getOrderHistory: ", orderIDs);
 
             // fetch meal and order data using another DdashApi method
             const ordersWithDeets = await Promise.all(
                 orderIDs.map(orderID => this.getOrderDetails(orderID))
             );
 
+            console.log("Orders with Deets: ", ordersWithDeets);
             return ordersWithDeets;
         } catch (err) {
             console.error("Error fetching order history: ", err);
@@ -110,6 +115,7 @@ class DdashApi {
     static async getOrderDetails(orderID) {
         try {
             let res = await this.request(`orders/${orderID}`);
+            console.log("getOrderDetails output: ", res.order);
             return res.order;
         } catch (err) {
             console.error(`Error getting data for orderID ${orderID}: `, err);

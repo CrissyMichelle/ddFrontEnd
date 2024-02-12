@@ -13,6 +13,7 @@ import CustomerSignUp from './routes/CustomerSignUp';
 import CookSignUp from './routes/CookSignUp';
 import CartRoute from './routes/CartRoute';
 import CustomerProfile from './components/CustomerProfile';
+import OrderHistory from './routes/OrderHistory';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="/auth/register/92G" element={<CookSignUp />} />
               <Route path="/cart" element={<CartRoute />} />
               <Route path="/customer/profile" element={<CustomerProfile />} />
+              <Route path="/orders/customer/:customerID" element={<OrderHistory />} />
             </Routes>
         </Router>
       </CartProvider>      

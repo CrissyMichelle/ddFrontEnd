@@ -38,7 +38,7 @@ function CustomerProfile() {
     
     console.log("Orders array within customer details: ", customerDetails);
     const handleOrdersListNavigation = () => {
-        navigate(`/orders/customer/${customerDetails.customerID}`, { state: customerDetails });
+        navigate(`/orders/customer/${customerDetails.customerID}`);
     };
 
     if (!customerDetails) {

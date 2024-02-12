@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from "react";
 import { AuthContext, useAuth } from "../components/AuthContext";
 import DdashApi from "../api";
+import OrderCard from "../components/OrderCard";
 
 function OrderHistory() {
     const [orders, setOrders] = useState([]);
@@ -29,9 +30,7 @@ function OrderHistory() {
             <h2>Order History</h2>
             {orders.length > 0 ? (
                 orders.map(order => (
-                    <div key={order.orderID}>
-                        OrderCard component goes here?
-                    </div>
+                    <OrderCard key={order.orderID} order={order} />
                 ))
             ) : (
                 <p>You haven't placed any orders yet.</p>
