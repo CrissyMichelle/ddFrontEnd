@@ -88,6 +88,17 @@ class DdashApi {
         return res.customer;
     }
 
+    /** GET specific customer's orders details */
+    static async getOrderHistory(username) {
+        try {
+            const customerDetails = await this.getCustomerDeets(username);
+            return customerDetails.orders
+        } catch (err) {
+            console.error("Error fetching order history: ", err);
+            throw err;
+        }
+    }
+
     /** POST new order */
     static async addMealToOrder(customerID, mealID, dfacID) {
         try {
