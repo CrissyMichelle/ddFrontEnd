@@ -33,8 +33,16 @@ function OrderHistory() {
 
     const handleCancelOrder = async (orderID) => {
         try {
-            // await DdashApi.cancelOrder(orderID);
-            console.log("Order cancelled: ", orderID);
+            const canceledOrder = await DdashApi.updateOrder(orderID, { canceled: true });
+            console.log("Order canceled successfully: ", canceledOrder);
+
+            // update orders state with the new cancellation timestamp data
+            setOrders(orders.map(order => {
+                if (order.order.orderID === orderID) {
+                    return { ...order, order: { ...order.order, canceledAtTime: new Date().toISOString() } };
+                }
+                return order;
+            }));
         } catch (err) {
             console.error("Error canceling order: ", err);
         }
@@ -47,7 +55,7 @@ function OrderHistory() {
             <h2>Order History</h2>
             {orders.length > 0 ? (
                 orders.map(order => (
-                    <OrderCard key={order.orderID} order={order} onCancelOrder={handleCancelOrder} dfacName={order.dfacName} />
+                    <OrderCard key={order.order.orderID} order={order} onCancelOrder={handleCancelOrder} dfacName={order.dfacName} />
                 ))
             ) : (
                 <p>You haven't placed any orders yet.</p>

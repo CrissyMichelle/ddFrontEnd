@@ -13,21 +13,28 @@ function OrderCard({ order, onCancelOrder, dfacName }) {
         ? `Order picked up at: ${formatDate(order.order.pickedUpTime)}`
         : 'Ready and waiting for you to pickup!';
 
+    const orderCanceled = order.order.canceledAtTime
+        ? `Order canceled at: ${formatDate(order.order.canceledAtTime)}`
+        : null;
 
     function clickCancel(event) {
         onCancelOrder(order.order.orderID);
     }
 
     const renderCancelSection = () => {
-        return order.order.reaadyTime
-            ? <p>Ready for pickup: {formatDate(order.order.readyTime)}</p>
-            : (
+        if (order.order.canceledAtTime) {
+            return <p>{orderCanceled}</p>;
+        } else if (order.order.readyTime) {
+            return <p>Ready for pickup: {formatDate(order.order.readyTime)}</p>
+        } else {
+            return (
                 <p>
                     Not ready for pickup just yet. {' '}
                     <button onClick={clickCancel}>Cancel Order</button>
                 </p>
             );
-    }
+        }
+    };
 
     return (
         <div className="order-card">

@@ -3,12 +3,13 @@ import DdashApi from "../api";
 import { AuthContext, useAuth } from "../components/AuthContext";
 import { useCart } from "../components/CartContext";
 import MealCard from "../components/MealCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './CartRoute.css';
 
 function CartRoute() {
     const { currentUser } = useAuth();
     const { cartItems, removeFromCart, clearCart } = useCart();
+    const navigate = useNavigate();
     const [meals, setMeals] = useState(null);
     const [orderMeal, setOrderMeal] = useState(new Map());
     const [isLoading, setIsLoading] = useState(true);
@@ -40,6 +41,11 @@ function CartRoute() {
         setIsLoading(false);        
     };
 
+    const handleOrdersListNavigation = async () => {
+        const user = await DdashApi.getCustomerDeets(currentUser);
+        navigate(`/orders/customer/${user.customerID}`);
+    };
+
     return (
         <div>
             {errors && <p className="error">Error: {errors}</p>}
@@ -59,7 +65,8 @@ function CartRoute() {
                     <p>Your cart is empty, how's your stomach doing? Add a meal and come back here to checkout!</p>
                     <Link to="/meals">
                         <button type="button" className="button">Browse Meals</button>
-                    </Link>                  
+                    </Link>
+                        <button onClick={handleOrdersListNavigation}>View Order History</button>                 
                 </div>
             )}
         </div>
