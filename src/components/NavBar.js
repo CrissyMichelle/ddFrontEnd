@@ -6,6 +6,7 @@ import "./NavBar.css";
 import logo from "../images/LL_Logo.png"
 import divLogo from "../images/25IDlogo.png";
 import healthLogo from "../images/H2F.jpeg";
+import DdashApi from "../api";
 
 function NavBar() {
     const { isLoggedIn, currentUser, logout } = useAuth();
@@ -14,6 +15,7 @@ function NavBar() {
     const [isScreenSmall, setIsScreenSmall] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isActive, setIsActive] = useState(false);
+    const [currentUserDeets, setCurrentUserDeets] = useState(null);
 
     useEffect(() => {
         const checkScreenSize = () => {
@@ -25,6 +27,21 @@ function NavBar() {
 
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
+
+    useEffect(() => {
+        const fetchCurrentUserDeets = async () => {
+            if (isLoggedIn && currentUser) {
+                try {
+                    const customerDetails = await DdashApi.getCustomerDeets(currentUser);
+                    setCurrentUserDeets(customerDetails);
+                } catch (error) {
+                    console.error("Error fetching user data: ", error);
+                }
+            }
+        };
+
+        fetchCurrentUserDeets();
+    }, [isLoggedIn, currentUser]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -58,7 +75,10 @@ function NavBar() {
                         <Link to="/auth/dfacs">DFACs</Link>
                         {isLoggedIn ? (
                             <>
-                                <Link to="/profile">
+                                <Link to={{
+                                    pathname: "/customer/profile",
+                                    state: { customer: currentUserDeets }
+                                }}>
                                     <span>Welcome, {currentUser}</span>
                                 </Link>
                                 <button onClick={handleLogout}>Logout</button>

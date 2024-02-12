@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext, useAuth } from "./AuthContext";
 import DdashApi from "../api";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./DfacCard.css";
 
-function CustomerProfile({ customer }) {
+function CustomerProfile() {
+    const location = useLocation();
     const { currentUser } = useAuth();
     const [customerDetails, setCustomerDetails] = useState(null);
     const navigate = useNavigate();
@@ -12,7 +13,20 @@ function CustomerProfile({ customer }) {
     useEffect(() => {
         const fetchedCustomerDetails = async () => {
             try {
-                const details = await DdashApi.getCustomerDeets(currentUser);
+                // Check for customer data in the location state
+                const customerFromState = location.state?.customer;
+
+                let details;
+                if (customerFromState) {
+                    details = customerFromState;
+                } else if (currentUser) {
+                    details = await DdashApi.getCustomerDeets(currentUser);
+                } else {
+                    console.error("No customer data available");
+                    navigate('/');
+                    return;
+                }
+
                 setCustomerDetails(details);
             } catch (err) {
                 console.error("Error fetching customer data: ", err);
@@ -20,11 +34,11 @@ function CustomerProfile({ customer }) {
         };
 
         fetchedCustomerDetails();
-    }, [currentUser]);
+    }, [currentUser, location.state]);
     
     console.log("Orders array within customer details: ", customerDetails);
     const handleOrdersListNavigation = () => {
-        navigate(`/orders/customer/${customer.customerID}`, { state: customerDetails });
+        navigate(`/orders/customer/${customerDetails.customerID}`, { state: customerDetails });
     };
 
     if (!customerDetails) {
@@ -33,22 +47,22 @@ function CustomerProfile({ customer }) {
 
     return (
         <div className="dfac-card">
-            <h2><b>Welcome, {customer.username}</b></h2>
-            <img src={`${customer.profilePicURL}`} alt="Profile Picture" />
+            <h2><b>Welcome, {customerDetails.username}</b></h2>
+            <img src={`${customerDetails.profilePicURL}`} alt="Profile Picture" />
             <button onClick={handleOrdersListNavigation}>View Order History</button>
             <h3>Customer Information</h3>
             <p>Name</p>
-            <p>{customer.firstName} {customer.lastName}</p>
+            <p>{customerDetails.firstName} {customerDetails.lastName}</p>
             <p>DODID</p>
-            <p>{customer.dodid}</p>
+            <p>{customerDetails.dodid}</p>
             <p>Phone number</p>
-            <p>{customer.phNumber}</p>
+            <p>{customerDetails.phNumber}</p>
             <p><i>Meal Card Holder?</i></p>
-            <p>{customer.mealCard}</p>
+            <p>{customerDetails.mealCard}</p>
             <p>email</p>
-            <p>{customer.email}</p>
+            <p>{customerDetails.email}</p>
             <h3>Karma Score</h3>
-            <p>{customer.karmaScore}</p>
+            <p>{customerDetails.karmaScore}</p>
         </div>
     );
 }
