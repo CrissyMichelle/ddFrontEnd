@@ -88,13 +88,31 @@ class DdashApi {
         return res.customer;
     }
 
-    /** GET specific customer's orders details */
+    /** GET specific customer's order details, including meal data */
     static async getOrderHistory(username) {
         try {
             const customerDetails = await this.getCustomerDeets(username);
-            return customerDetails.orders
+            const orderIDs = customerDetails.orders.orderID;
+
+            // fetch meal and order data using another DdashApi method
+            const ordersWithDeets = await Promise.all(
+                orderIDs.map(orderID => this.getOrderDetails(orderID))
+            );
+
+            return ordersWithDeets;
         } catch (err) {
             console.error("Error fetching order history: ", err);
+            throw err;
+        }
+    }
+
+    /** GET details for a specific order, including meal data */
+    static async getOrderDetails(orderID) {
+        try {
+            let res = await this.request(`orders/${orderID}`);
+            return res.order;
+        } catch (err) {
+            console.error(`Error getting data for orderID ${orderID}: `, err);
             throw err;
         }
     }
