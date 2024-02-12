@@ -135,6 +135,18 @@ class DdashApi {
             throw Array.isArray(message) ?  message : [message];
         }
     }
+
+    /** PATCH update an order with variable amount of data */
+    static async updateOrder(orderID, updateData) {
+        try {
+            const res = await this.request(`orders/${orderID}`, updateData, 'patch');
+            console.log("updateOrder output: ", res.order);
+            return res.order;
+        } catch (err) {
+            console.error(`Error patchin order ${orderID}: `, err);
+            throw err;
+        }
+    }
 }
 
 export default DdashApi;
