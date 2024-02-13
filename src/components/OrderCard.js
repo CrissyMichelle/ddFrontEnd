@@ -9,9 +9,9 @@ function OrderCard({ order, onCancelOrder, dfacName }) {
     }
 
     // conditional rendering of order readiness
-    const orderComplete = order.order.readyTime
-        ? `Order picked up at: ${formatDate(order.order.pickedUpTime)}`
-        : 'Ready and waiting for you to pickup!';
+    const orderComplete = order.order.pickedUpTime
+        ? `Order was picked up on ${formatDate(order.order.pickedUpTime)}`
+        : <b>Ready and waiting for you to pickup!</b>;
 
     const orderCanceled = order.order.canceledAtTime
         ? `Order canceled at: ${formatDate(order.order.canceledAtTime)}`

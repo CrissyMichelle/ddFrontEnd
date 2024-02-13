@@ -7,6 +7,12 @@ function OrdersList() {
     const [error, setError] = useState(null);
     const { token, currentUser } = useAuth();
 
+    const formatDate = (dateString) => {
+        if (!dateString) return 'Pending';
+        const date = new Date(dateString);
+
+        return `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+    }
     
     const culinarian = async () => {
         await DdashApi.get92Gdeets(currentUser);
@@ -31,9 +37,13 @@ function OrdersList() {
         fetchOrders();
     }, [token, currentUser]);
 
-    const updateOrderStatus = async (orderID, newStatus) => {
+    const updateOrderStatus = async (orderID, newStatusKey, newStatusValue) => {
         try {
-            await DdashApi.updateOrder(orderID, { status: newStatus });
+            let updateData = {};
+            updateData[newStatusKey] = newStatusValue;
+
+            console.log("Update data passed inside of OrdersList: ", updateData);
+            await DdashApi.updateOrder(orderID, updateData);
             await fetchOrders();
         } catch (err) {
             console.error("Failed to update order status", err);
@@ -50,12 +60,12 @@ function OrdersList() {
                     {order.ready_for_pickup ? (
                         <p>Order ready for pickup at {order.ready_for_pickup}</p>
                     ) : (
-                        <button onClick={() => updateOrderStatus(order.id, new Date())}>Mark ready for pickup</button>
+                        <button onClick={() => updateOrderStatus(order.id, 'ready_for_pickup', new Date().toISOString())}>Mark ready for pickup</button>
                     )}
                     {order.picked_up ? (
                         <p>Order completed at {order.picked_up}</p>
                     ) : (
-                        <button onClick={() => updateOrderStatus(order.id, new Date())}>Mark order picked up and complete</button>
+                        <button onClick={() => updateOrderStatus(order.id, 'picked_up', new Date().toISOString())}>Mark order picked up and complete</button>
                     )}
                     {order.canceled && (
                         <p>Order CANCELED</p>
