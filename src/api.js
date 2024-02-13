@@ -153,6 +153,7 @@ class DdashApi {
     /** PATCH update an order with variable amount of data */
     static async updateOrder(orderID, updateData) {
         try {
+            console.log("OrderPATCH request with: ", updateData);
             const res = await this.request(`orders/${orderID}`, updateData, 'patch');
             console.log("updateOrder output: ", res.order);
             return res.order;
