@@ -58,7 +58,7 @@ function AuthRoute() {
             const { token } = await DdashApi.authCook(cookData);
             if (token) {
                 login(token);
-                navigate('/meals');
+                navigate('/orders');
             } else {
                 setErrors(['92G Login failed']);
             }

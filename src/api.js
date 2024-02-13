@@ -82,6 +82,14 @@ class DdashApi {
         return res.dfac;
     }
 
+    /** GET details on a specific culinarian */
+    static async get92Gdeets(username) {
+        const res = await this.request(`92G/user/${username}`);
+        console.log("get92Gdeets output: ", res.cook);
+        return res.cook;
+    }
+    
+
     /** GET details on a specific customer */
     static async getCustomerDeets(username) {
         const res = await this.request(`customers/${username}`);
