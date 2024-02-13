@@ -136,6 +136,12 @@ class DdashApi {
         }
     }
 
+    /** GET all orders */
+    static async getOrders() {
+        let res = await this.request('orders');
+        return res.orders;
+    }
+
     /** PATCH update an order with variable amount of data */
     static async updateOrder(orderID, updateData) {
         try {
