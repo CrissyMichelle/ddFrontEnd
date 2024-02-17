@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../components/AuthContext";
 import DdashApi from "../api";
+import './OrdersList.css';
 
 function OrdersList() {
     const [orders, setOrders] = useState([]);
@@ -52,10 +53,10 @@ function OrdersList() {
     };
 
     return (
-        <div>
+        <div className="orders-list">
             {orders.length > 0 ? orders.map((order) => (
                 <div key={order.id}>
-                    <p>Order ID: {order.id}</p>
+                    <h3>Order ID: {order.id}</h3>
                     <p>Order placed at time: {order.order_timestamp}</p>
                     {order.ready_for_pickup ? (
                         <p>Order ready for pickup at {order.ready_for_pickup}</p>
@@ -68,8 +69,9 @@ function OrdersList() {
                         <button onClick={() => updateOrderStatus(order.id, 'picked_up', new Date().toISOString())}>Mark order picked up and complete</button>
                     )}
                     {order.canceled && (
-                        <p>Order CANCELED</p>
+                        <h4>Order CANCELED</h4>
                     )}
+                    <hr/>
                 </div>
                 )) : (
                 <p>No orders found</p>
