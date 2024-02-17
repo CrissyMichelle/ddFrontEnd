@@ -54,7 +54,7 @@ function CartRoute() {
                     <ul>
                         {cartItems.map(meal => (
                             <li key={meal.mealID}>
-                                <MealCard meal={meal} handleRemove={() => removeFromCart(meal.mealID)} />
+                                <MealCard meal={meal} isViewingCart={true} handleRemove={() => removeFromCart(meal.mealID)} />
                             </li>
                         ))}
                     </ul>

@@ -53,6 +53,55 @@
     background-color: #ccc;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-container button {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    min-width: 150px;
+    width: 100%;
+    font-size: 14 px;
+    text-align: center;
+}
+
+#remove-btn:hover {
+    background-color: #999ff9;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10 px, 20px;
+}
+
+.go-to-cart-btn {
+    background-color: #45a049;
+    color: white;
+    padding: 10 px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    text-align: center;
+    width: 27%;
+    cursor: pointer;
+}
+
+.go-to-cart-btn:hover {
+    background-color: #007bff;
+}
+
 @media (max-width: 768px) {
     .meal-card {
         margin: 10px;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useCart } from './CartContext'
 import './MealCard.css';
 
-function MealCard( { meal, dfac }) {
+function MealCard( { meal, dfac, isViewingCart }) {
     const { addToCart, removeFromCart, cartItems } = useCart();
 
     // check if the meal is already in the cart
@@ -45,9 +45,12 @@ function MealCard( { meal, dfac }) {
                 </ul>
             )}
             {hasOrdered ? (
-                <button onClick={handleRemoveFromCart}>
-                    Remove from cart
-                </button>
+                <div className="button-container">
+                    <button id="remove-btn" onClick={handleRemoveFromCart}>
+                        Remove from cart
+                    </button>
+                    {!isViewingCart && <Link to="/cart" className="go-to-cart-btn">Go to Cart</Link>}
+                </div>
             ) : (
                 <button onClick={handleAddToCart}>
                     Add to cart
