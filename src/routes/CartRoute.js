@@ -33,7 +33,7 @@ function CartRoute() {
                 alert('Your order has been placed!');
             } catch (err) {
                 console.error("Error placing order: ", err);
-                setErrors(err.toString());
+                setErrors("You must log in to place an order.");
                 break;
             }
         }
@@ -50,8 +50,8 @@ function CartRoute() {
         <div>
             {errors && <p className="error">Error: {errors}</p>}
             {cartItems.length > 0 ? (
-                <>
-                    <ul>
+                <div className="cart-content">
+                    <ul className="cart-ul">
                         {cartItems.map(meal => (
                             <li key={meal.mealID}>
                                 <MealCard meal={meal} isViewingCart={true} handleRemove={() => removeFromCart(meal.mealID)} />
@@ -59,7 +59,7 @@ function CartRoute() {
                         ))}
                     </ul>
                     <button type="submit" onClick={handleOrderSubmission} className="button">Place Order</button>            
-                </>
+                </div>
             ) : (
                 <div className="cartP">
                     <p>Your cart is empty, how's your stomach doing? Add a meal and come back here to checkout!</p>
