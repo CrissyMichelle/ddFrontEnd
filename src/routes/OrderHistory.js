@@ -52,13 +52,13 @@ function OrderHistory() {
 
     return (
         <div>
-            <h2>Order History</h2>
+            <h2 style={{ textAlign: 'center' }}>Order History</h2>
             {orders.length > 0 ? (
                 orders.map(order => (
                     <OrderCard key={order.order.orderID} order={order} onCancelOrder={handleCancelOrder} dfacName={order.dfacName} />
                 ))
             ) : (
-                <p>You haven't placed any orders yet.</p>
+                <p style={{ textAlign: 'center' }}>You haven't placed any orders yet.</p>
             )}
         </div>
     );
