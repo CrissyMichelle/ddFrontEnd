@@ -88,7 +88,7 @@ function MealsRoute() {
     return (
         <div className="meals-route-container">
             <h1>Meals</h1>
-            <form onSubmit={handleSearch} className="meals-search-form">
+            {/* <form onSubmit={handleSearch} className="meals-search-form">
                 <input
                     type="text"
                     placeholder="Search meals by name"
@@ -102,7 +102,7 @@ function MealsRoute() {
                     onChange={e => setItemsLike(e.target.value)}
                 />
                 <button type="submit">Search</button>
-            </form>
+            </form> */}
             {renderMeals()}
         </div>
     );
