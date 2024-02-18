@@ -5,7 +5,7 @@ const Disclaimer = () => {
     return (
         <div className="disclaimer-banner">
             <p>
-                <strong>Notice:</strong> This application is for demo purposes without robust cybersecurity assurances. TEST DATA ONLY
+                <strong>Notice:</strong> This application prototype is strictly for demo purposes and lacks robust cybersecurity assurances. <b>TEST DATA ONLY</b>
             </p>
         </div>
     );
