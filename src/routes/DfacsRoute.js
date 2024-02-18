@@ -41,7 +41,7 @@ function DfacsRoute() {
     return (
         <div className="dfacs-container">
             <h1>Dining Facilities</h1>
-            <form className="search-form" onSubmit={handleSearch}>
+            {/* <form className="search-form" onSubmit={handleSearch}>
                 <input
                     type="text"
                     placeholder="Search DFACs by name, address, or hours"
@@ -49,7 +49,7 @@ function DfacsRoute() {
                     onChange={e => setSearchTerm(e.target.value)}
                 />
                 <button type="submit">Search</button>
-            </form>
+            </form> */}
             <div className="dfac-card">
                 {dfacs.map(dfac => (
                     <DfacCard key={dfac.dfacID} dfac={dfac} />

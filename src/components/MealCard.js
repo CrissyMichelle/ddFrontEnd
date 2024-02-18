@@ -26,8 +26,13 @@ function MealCard( { meal, dfac, isViewingCart }) {
                 <b>{meal.mealName}</b><br />
                 {hasDfacData && (
                     <>
-                        {' available at '}
-                        <Link to={`/auth/${dfac.dfacID}`}> {dfac.dfacName}</Link>
+                        {' available at: '}
+                        {/* DFAC pages awaiting development...
+                        <Link to={`/auth/${dfac.dfacID}`}> {dfac.dfacName}</Link> */}
+                        <span className="under-development">
+                            {dfac.dfacName}
+                            <span className="tooltip-message">Page Under Development</span>
+                        </span>
                     </>
                 )}              
             </h3>
