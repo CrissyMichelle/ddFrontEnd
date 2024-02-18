@@ -15,12 +15,14 @@ import CartRoute from './routes/CartRoute';
 import CustomerProfile from './components/CustomerProfile';
 import OrderHistory from './routes/OrderHistory';
 import OrdersList from './routes/OrdersList';
+import Disclaimer from './components/Disclaimer';
 
 function App() {
   return (
     <AuthProvider>
       <CartProvider>
         <Router>
+            <Disclaimer />
             <NavBar />
             <Routes>
               <Route path="/auth/customer/login" element={<AuthRoute />} />

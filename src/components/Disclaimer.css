@@ -1,0 +1,10 @@
+.disclaimer-banner {
+    background-color: #ffcccb;
+    color: black;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0%;
+    z-index: 1000;
+}
