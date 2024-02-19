@@ -60,12 +60,12 @@ function OrdersList() {
                     <p>Order placed at time: {order.order_timestamp}</p>
                     {order.ready_for_pickup ? (
                         <p>Order ready for pickup at {order.ready_for_pickup}</p>
-                    ) : (
+                    ) : !order.canceled && (
                         <button onClick={() => updateOrderStatus(order.id, 'ready_for_pickup', new Date().toISOString())}>Mark ready for pickup</button>
                     )}
                     {order.picked_up ? (
                         <p>Order completed at {order.picked_up}</p>
-                    ) : (
+                    ) : !order.canceled && (
                         <button onClick={() => updateOrderStatus(order.id, 'picked_up', new Date().toISOString())}>Mark order picked up and complete</button>
                     )}
                     {order.canceled && (
