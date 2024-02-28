@@ -82,6 +82,19 @@ class DdashApi {
         return res.dfac;
     }
 
+    /** GET all items for a specific DFAC */
+    static async getDfacItems(dfacID) {
+        try {
+            let res = await this.request(`dfac-items/${dfacID}/items`);
+            console.log("getDfacItems output: ", res.dfacItems);
+            return res.dfacItems;
+        } catch (err) {
+            console.error("Error fetching Dfac items: ", err);
+            let message = err.response?.data?.error?.message;
+            throw Array.isArray(message) ? message : [message];
+        }
+    }
+
     /** GET details on a specific culinarian */
     static async get92Gdeets(username) {
         const res = await this.request(`92G/user/${username}`);

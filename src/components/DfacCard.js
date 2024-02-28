@@ -3,6 +3,7 @@ import DdashApi from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import "./DfacCard.css";
 import innImg from "../images/WarriorInnLogo.jpg";
+import DfacItems from "./DfacItems";
 
 function DfacCard( { dfac }) {
     const [dfacDetails, setDfacDetails] = useState(null);
@@ -35,6 +36,7 @@ function DfacCard( { dfac }) {
             <h2><b>{dfac.dfacName}</b></h2>
             <img src={innImg} alt={`${dfac.dfacName} logo`} />
             <button onClick={handleMealListNavigation}>View Available Meals</button>
+            <DfacItems dfacID={dfac.dfacID} />
             <h2><b>Hours</b></h2>
             <h3>Monday - Friday</h3>
             <p>Breakfast</p>
