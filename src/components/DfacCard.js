@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import DdashApi from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import "./DfacCard.css";
-import logo2IBCT from "src/images/dfac_logos/2ibct.jpg";
-import logo25AVN from "src/images/dfac_logos/25avn.jpg";
+import logo2IBCT from "../images/dfac_logos/2ibct.jpg";
+import logo25AVN from "../images/dfac_logos/25avn.jpg";
 import DfacItems from "./DfacItems";
 
 function DfacCard({ dfac }) {
