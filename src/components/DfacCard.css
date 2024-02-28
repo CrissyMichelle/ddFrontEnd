@@ -43,6 +43,10 @@
     margin-top: 15px;
 }
 
+.dfac-items li {
+    list-style-type: none;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .dfac-card {
