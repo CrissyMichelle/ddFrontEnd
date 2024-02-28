@@ -11,8 +11,9 @@ function HomeRoute() {
     return (
         <div className="Home">
             <header className="Home-header">
-                <h2><i>Welcome to dfac Dash</i></h2>
-                <h1>Passionate about good food and pro service</h1>
+                <h1><i>Welcome to DFAC Dash</i></h1>
+                <h2>Passionate about good food and pro service</h2>
+                <h2>Order a meal to go!</h2>
                 <img src={culinaryImg} className="Home-logo" alt="logo" />
                 <p>
                 </p>
