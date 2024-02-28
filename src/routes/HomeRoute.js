@@ -13,11 +13,8 @@ function HomeRoute() {
             <header className="Home-header">
                 <h1><i>Welcome to DFAC Dash</i></h1>
                 <h2>Passionate about good food and pro service</h2>
-                <h2>Order a meal to go!</h2>
+                <Link to="meals"><h3><i>Order a meal to go!</i></h3></Link>
                 <img src={culinaryImg} className="Home-logo" alt="logo" />
-                <p>
-                </p>
-                <Link to="meals">Meals</Link>
             </header>
         </div>
     );
