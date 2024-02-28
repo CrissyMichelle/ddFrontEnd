@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import DdashApi from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import "./DfacCard.css";
-import innImg from "../images/WarriorInnLogo.jpg";
+import logo2IBCT from "src/images/dfac_logos/2ibct.jpg";
+import logo25AVN from "src/images/dfac_logos/25avn.jpg";
 import DfacItems from "./DfacItems";
 
-function DfacCard( { dfac }) {
+function DfacCard({ dfac }) {
     const [dfacDetails, setDfacDetails] = useState(null);
     const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ function DfacCard( { dfac }) {
 
         fetchedDfacDetails();
     }, [dfac.dfacID]);
-    
+
     console.log("Meals object with dfac details: ", dfacDetails);
     const handleMealListNavigation = () => {
         navigate(`/meals/dfac/${dfac.dfacID}`, { state: dfacDetails });
@@ -34,7 +35,8 @@ function DfacCard( { dfac }) {
     return (
         <div className="dfac-card">
             <h2><b>{dfac.dfacName}</b></h2>
-            <img src={innImg} alt={`${dfac.dfacName} logo`} />
+            {dfac.dfacID == 1 ? <img src={logo2IBCT} /> : <img src={logo25AVN} />}
+            <br/>
             <button onClick={handleMealListNavigation}>View Available Meals</button>
             <DfacItems dfacID={dfac.dfacID} />
             <h2><b>Hours</b></h2>
