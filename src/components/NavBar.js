@@ -71,6 +71,7 @@ function NavBar() {
                 )}
                 {(isScreenSmall && isMenuOpen) || !isScreenSmall ? (
                     <>
+                        <Link to="/GoogleMaps">Map</Link>
                         <Link to="/meals">Meals</Link>
                         <Link to="/auth/dfacs">DFACs</Link>
                         {isLoggedIn ? (
