@@ -45,6 +45,9 @@ function DfacCard({ dfac }) {
             )}
             <br/>
             <button onClick={handleMealListNavigation}>View Available Meals</button>
+            <h2>
+                {dfac.flashMsg1}
+            </h2>
             <DfacItems dfacID={dfac.dfacID} />
             <h2><b>Hours</b></h2>
             <h3>Monday - Friday</h3>
@@ -66,10 +69,7 @@ function DfacCard({ dfac }) {
             <p><i>Ordering Windows</i></p>
             <p>{dfac.orderBch}</p>
             <p>{dfac.orderSup}</p>
-            <div>
-                {`${dfac.dfacName} address and phone number`}
-            </div>
-            <p>{dfac.flashMsg1}</p>
+            <p><b><u>Address and Phone</u></b></p>
             <p>{dfac.street} {dfac.bldgNum}</p>
             <p>{dfac.city} {dfac.state}{dfac.zip}</p>
             <p>{dfac.dfacPhone}</p>
