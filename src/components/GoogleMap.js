@@ -70,10 +70,10 @@ const InitMap = () => {
   return (
     <div>
       <div id="map" style={{ width: '100%', height: '500px' }}></div>
-      <ul>
+      <ul className='map-list'>
         {Object.entries(locations).map(([locationName, coordinates]) => (
           <li key={locationName}>
-            <button onClick={() => showLocation(locationName, coordinates, 17)}>
+            <button className="map-btn" onClick={() => showLocation(locationName, coordinates, 17)}>
               {locationName}
             </button>
           </li>
