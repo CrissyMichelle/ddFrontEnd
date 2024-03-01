@@ -73,6 +73,7 @@ function NavBar() {
                     <>
                         <Link to="/meals">Meals</Link>
                         <Link to="/auth/dfacs">DFACs</Link>
+                        <Link to="/GoogleMaps">Map</Link>
                         {isLoggedIn ? (
                             <>
                                 <Link to={{

@@ -16,6 +16,9 @@ import CustomerProfile from './components/CustomerProfile';
 import OrderHistory from './routes/OrderHistory';
 import OrdersList from './routes/OrdersList';
 import Disclaimer from './components/Disclaimer';
+import GoogleMap from './components/GoogleMap';
+import GoogleMaps from './routes/GoogleMaps';
+
 
 function App() {
   return (
@@ -36,6 +39,7 @@ function App() {
               <Route path="/customer/profile" element={<CustomerProfile />} />
               <Route path="/orders/customer/:customerID" element={<OrderHistory />} />
               <Route path="/orders" element={<OrdersList />} />
+              <Route path="/GoogleMaps" element={<GoogleMap />} />
             </Routes>
         </Router>
       </CartProvider>      
