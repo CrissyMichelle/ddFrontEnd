@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import DdashApi from "../api";
 import DfacCard from "../components/DfacCard";
 import "./DfacsRoute.css";
@@ -55,6 +56,7 @@ function DfacsRoute() {
                     <DfacCard key={dfac.dfacID} dfac={dfac} />
                 ))}
             </div>
+            <Link to="/orders"><button>Orders</button></Link>
         </div>
     );
 }
