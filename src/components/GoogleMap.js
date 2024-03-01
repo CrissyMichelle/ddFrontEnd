@@ -6,9 +6,9 @@ const InitMap = () => {
   const [marker, setMarker] = useState(null);
 
   const locations = {
-    "2085 Aleshire Ave": { lat: 21.4984, lng: -158.0586 },
-    "1129 Wright Ave": { lat: 21.4938, lng: -158.0601 },
-    // ... (add other locations)
+    "Warrior Inn": { lat: 21.487215, lng: -158.055369 },
+    "Wings of Lightning": { lat: 21.483337, lng: -158.040177 },
+    "Bronco Cafe": { lat: 21.489618, lng: -158.051138},
   };
 
   useEffect(() => {

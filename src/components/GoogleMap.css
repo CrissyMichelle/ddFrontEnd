@@ -4,7 +4,9 @@
     margin: auto;
     height: auto;
 }
-
+.button {
+    color: red;
+}
 .search-button {
     height: auto;
     width: 50px;
