@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./DfacCard.css";
 import logo2IBCT from "../images/dfac_logos/2ibct.jpg";
 import logo25AVN from "../images/dfac_logos/25avn.jpg";
+import logo3IBCT from "../images/BroncoCafe.jpg";
 import DfacItems from "./DfacItems";
 
 function DfacCard({ dfac }) {
@@ -35,7 +36,13 @@ function DfacCard({ dfac }) {
     return (
         <div className="dfac-card">
             <h2><b>{dfac.dfacName}</b></h2>
-            {dfac.dfacID == 1 ? <img src={logo2IBCT} /> : <img src={logo25AVN} />}
+            {dfac.dfacID === 1 ? (
+                <img src={logo2IBCT} alt="2IBCT Logo" />
+            ) : dfac.dfacID === 2 ? (
+                <img src={logo25AVN} alt="25CAB Logo" />
+            ) : (
+                <img src={logo3IBCT} alt="3IBCT Logo"/>
+            )}
             <br/>
             <button onClick={handleMealListNavigation}>View Available Meals</button>
             <DfacItems dfacID={dfac.dfacID} />
