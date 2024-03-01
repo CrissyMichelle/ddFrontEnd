@@ -8,8 +8,10 @@
 }
 
 .dfac-card img {
+    width: auto;
     max-width: 100%;
-    height: auto;
+    height: 150px;
+    object-fit: cover;
     border-radius: 5px;
 }
 
@@ -41,6 +43,10 @@
 .dfac-card div {
     font-weight: bold;
     margin-top: 15px;
+}
+
+.dfac-items li {
+    list-style-type: none;
 }
 
 /* Responsive adjustments */

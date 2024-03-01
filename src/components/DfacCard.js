@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import DdashApi from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import "./DfacCard.css";
-import innImg from "../images/WarriorInnLogo.jpg";
+import logo2IBCT from "../images/dfac_logos/2ibct.jpg";
+import logo25AVN from "../images/dfac_logos/25avn.jpg";
+import logo3IBCT from "../images/BroncoCafe.jpg";
+import DfacItems from "./DfacItems";
 
-function DfacCard( { dfac }) {
+function DfacCard({ dfac }) {
     const [dfacDetails, setDfacDetails] = useState(null);
     const navigate = useNavigate();
 
@@ -20,7 +23,7 @@ function DfacCard( { dfac }) {
 
         fetchedDfacDetails();
     }, [dfac.dfacID]);
-    
+
     console.log("Meals object with dfac details: ", dfacDetails);
     const handleMealListNavigation = () => {
         navigate(`/meals/dfac/${dfac.dfacID}`, { state: dfacDetails });
@@ -33,8 +36,19 @@ function DfacCard( { dfac }) {
     return (
         <div className="dfac-card">
             <h2><b>{dfac.dfacName}</b></h2>
-            <img src={innImg} alt={`${dfac.dfacName} logo`} />
+            {dfac.dfacID === 1 ? (
+                <img src={logo2IBCT} alt="2IBCT Logo" />
+            ) : dfac.dfacID === 2 ? (
+                <img src={logo25AVN} alt="25CAB Logo" />
+            ) : (
+                <img src={logo3IBCT} alt="3IBCT Logo"/>
+            )}
+            <br/>
             <button onClick={handleMealListNavigation}>View Available Meals</button>
+            <h2>
+                {dfac.flashMsg1}
+            </h2>
+            <DfacItems dfacID={dfac.dfacID} />
             <h2><b>Hours</b></h2>
             <h3>Monday - Friday</h3>
             <p>Breakfast</p>
@@ -55,10 +69,7 @@ function DfacCard( { dfac }) {
             <p><i>Ordering Windows</i></p>
             <p>{dfac.orderBch}</p>
             <p>{dfac.orderSup}</p>
-            <div>
-                {`${dfac.dfacName} address and phone number`}
-            </div>
-            <p>{dfac.flashMsg1}</p>
+            <p><b><u>Address and Phone</u></b></p>
             <p>{dfac.street} {dfac.bldgNum}</p>
             <p>{dfac.city} {dfac.state}{dfac.zip}</p>
             <p>{dfac.dfacPhone}</p>

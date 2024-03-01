@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from './CartContext'
+import { useCart } from './CartContext';
 import './MealCard.css';
+import defaultMealImg from '../images/LunchNo1.jpg';
 
 function MealCard( { meal, dfac, isViewingCart }) {
     const { addToCart, removeFromCart, cartItems } = useCart();
@@ -20,6 +21,15 @@ function MealCard( { meal, dfac, isViewingCart }) {
         removeFromCart(meal.mealID);
     };
 
+    function getImageUrl(imgURL) {
+        if (imgURL.includes('101cookingfortwo.com')) {
+            return defaultMealImg;
+        }
+        return imgURL;
+    }
+
+    const mealImageURL = getImageUrl(meal.imgPic);
+
     return (
         <li className="meal-card">
             <h3>
@@ -36,7 +46,7 @@ function MealCard( { meal, dfac, isViewingCart }) {
                     </>
                 )}              
             </h3>
-            <img src={meal.imgPic} alt={`Meal: ${meal.mealName}`} />
+            <img src={mealImageURL} alt={`Meal: ${meal.mealName}`} />
             <p>{meal.description}</p>
             {meal.items && Array.isArray(meal.items) && (
                 <ul>
