@@ -73,7 +73,24 @@ class DdashApi {
     /** GET all meals with optional search parameters */
     static async getMeals() {
         let res = await this.request('meals');
-        return res.meals;
+        let meals = res.meals;
+
+        const orderMap = {
+            breakfast: 1,
+            lunch: 2,
+            dinner: 3,
+            brunch: 4,
+            supper: 5
+        };
+
+        meals.sort((a, b) => {
+            let orderA = orderMap[a.type.toLowerCase()] || 999;
+            let orderB = orderMap[b.type.toLowerCase()] || 999;
+
+            return orderA - orderB;
+        });
+
+        return meals;
     }
 
     /** GET details on a specific dfac, including all meals */
