@@ -49,13 +49,15 @@ const InitMap = () => {
     }));
   };
 
-  const showLocation = (locationName, coordinates) => {
+  const showLocation = (locationName, coordinates, zoomLevel) => {
     const location = locations[locationName];
     if (location) {
       if (marker) {
         marker.setMap(null);
       }
       map.setCenter(location);
+      map.setZoom(zoomLevel || 15);
+
       const newMarker = new window.google.maps.Marker({
         position: coordinates || location,
         map: map,
@@ -71,7 +73,7 @@ const InitMap = () => {
       <ul>
         {Object.entries(locations).map(([locationName, coordinates]) => (
           <li key={locationName}>
-            <button onClick={() => showLocation(locationName, coordinates)}>
+            <button onClick={() => showLocation(locationName, coordinates, 17)}>
               {locationName}
             </button>
           </li>
