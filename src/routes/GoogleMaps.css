@@ -1,0 +1,19 @@
+.maps-container {
+    max-width: 1000px;
+    border: 100px;
+    margin: auto;
+    height: auto;
+}
+
+.search-button {
+    height: auto;
+    width: 50px;
+    color: red;
+    
+}
+
+.address-box {
+    height: 20px;
+    width: 200px;
+    
+}

@@ -1,0 +1,23 @@
+.Home {
+    text-align: center;
+}
+  
+.Home-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.Home-header {
+  background-color: #fff;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+}
+
+.Home-link {
+  color: #c74408;
+}
