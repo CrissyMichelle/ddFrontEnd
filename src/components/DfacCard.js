@@ -6,6 +6,7 @@ import logo2IBCT from "../images/dfac_logos/2ibct.jpg";
 import logo25AVN from "../images/dfac_logos/25avn.jpg";
 import logo3IBCT from "../images/BroncoCafe.jpg";
 import DfacItems from "./DfacItems";
+import useAuth from "./AuthContext.js";
 
 function DfacCard({ dfac }) {
     const [dfacDetails, setDfacDetails] = useState(null);
@@ -32,6 +33,7 @@ function DfacCard({ dfac }) {
     if (!dfacDetails) {
         return <div>Loading... ...</div>;
     }
+    const { isLoggedIn } = useAuth();
 
     return (
         <div className="dfac-card">
@@ -48,7 +50,7 @@ function DfacCard({ dfac }) {
             <h2>
                 {dfac.flashMsg1}
             </h2>
-            <DfacItems dfacID={dfac.dfacID} />
+            <DfacItems dfacID={dfac.dfacID} editable={isLoggedIn} />
             <h2><b>Hours</b></h2>
             <h3>Monday - Friday</h3>
             <p>Breakfast</p>

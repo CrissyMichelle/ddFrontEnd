@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     console.log("Initial username from localStorage: ", localStorage.getItem('username'));
     const [token, setToken] = useState(localStorage.getItem('authToken') || null);
     const [currentUser, setCurrentUser] = useState(localStorage.getItem('username') || '');
-
+    const [editableItems, setEditableItems] = useState([]);
     // updating the token state causes the following effect
     // decodes the user's token and enables authentication
     useEffect(() => {
@@ -47,7 +47,10 @@ export const AuthProvider = ({ children }) => {
 
         DdashApi.token = newToken;
     }
-
+    function updateEditableItems(newItems) {
+        setEditableItems(newItems);
+    }
+    
     function logout() {
         console.log("User logging out: ", currentUser);
         localStorage.removeItem('authToken');
