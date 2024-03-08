@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import DdashApi from "../api";
+import { useAuth } from "./AuthContext";
+import "./DfacCookItem.css"
 
-function DfacItems({ dfacID, editable }) {
+function DfacCookItem({ dfacID, editable }) {
     const [menuItems, setMenuItems] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -58,5 +60,5 @@ function DfacItems({ dfacID, editable }) {
     );
 }
 
-export default DfacItems;
+export default DfacCookItem;
 

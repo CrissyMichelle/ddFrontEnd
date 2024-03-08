@@ -18,6 +18,7 @@ import OrdersList from './routes/OrdersList';
 import Disclaimer from './components/Disclaimer';
 import GoogleMap from './components/GoogleMap';
 import GoogleMaps from './routes/GoogleMaps';
+import DfacCookItem from './components/DfacCookItem';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
               <Route path="/orders/customer/:customerID" element={<OrderHistory />} />
               <Route path="/orders" element={<OrdersList />} />
               <Route path="/GoogleMaps" element={<GoogleMap />} />
+              <Route path="/MenuEditing" element={<DfacCookItem />} />
             </Routes>
         </Router>
       </CartProvider>      
